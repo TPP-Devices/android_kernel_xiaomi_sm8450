@@ -31,8 +31,6 @@
 #include <linux/interrupt.h>
 #include <linux/completion.h>
 #include <linux/of_irq.h>
-#include <linux/pm_runtime.h>
-#include <linux/pm_qos.h>
 #if IS_ENABLED(CONFIG_OF)
 #include <linux/of_gpio.h>
 #include <linux/regulator/consumer.h>
@@ -746,8 +744,7 @@ struct goodix_ts_core {
 	struct work_struct gesture_work;
 	struct workqueue_struct *gesture_wq;
 	struct workqueue_struct *event_wq;
-	bool tp_pm_suspend;
-	struct completion pm_resume_completion;
+	int gesture_enabled;
 	int aod_status;
 /* N17 code for HQ-290598 by jiangyue at 2023/6/6 end */
 	struct delayed_work panel_notifier_register_work;
